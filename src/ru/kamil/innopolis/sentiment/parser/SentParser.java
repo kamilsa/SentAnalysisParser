@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.HashSet;
 
-public class SentParserMain {
+public class SentParser {
 
 	public static void getNews() throws Exception {
 		
