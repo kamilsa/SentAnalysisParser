@@ -14,15 +14,18 @@ import java.util.StringTokenizer;
  */
 public class Main {
 
-    public static void main(String args[]) throws SQLException, ClassNotFoundException {
+    public static void main(String args[]) {
+
+//        createDatabaseFromTxt("res/DepecheMood_freq.txt"); //createDatabase from txt if it necessary. Maybe db has already made.
+    }
+
+    public static void createDatabaseFromTxt(String fileStr) throws SQLException, ClassNotFoundException {
         DBHelper.getConnection();
-        File file = new File("res/DepecheMood_freq.txt");
-        System.out.println("Hello");
+        File file = new File(fileStr);
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line = br.readLine();
             line = br.readLine();
-            System.out.println(line);
             while(line != null){
                 StringTokenizer st = new StringTokenizer(line);
                 String lemma = st.nextToken();
@@ -53,6 +56,5 @@ public class Main {
             e.printStackTrace();
         }
         DBHelper.closeConnection();
-
     }
 }
