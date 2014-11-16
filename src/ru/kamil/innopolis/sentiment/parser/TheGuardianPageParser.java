@@ -28,6 +28,7 @@ public class TheGuardianPageParser {
 	public TheGuardianPageParser(String urlStr) throws Exception {
 		this.url = new URL(urlStr);
 		html = getContentOfHTTPPage();
+        Hello;
 	}
 
 	public TheGuardianPageParser() throws Exception {
