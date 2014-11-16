@@ -2,7 +2,7 @@ package ru.kamil.innopolis.sentiment.parser;
 
 import ru.kamil.innopolis.sentiment.database.DBHelper;
 
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by kamil on 16.11.14.
