@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jsoup.Jsoup;
+import org.jsoup .Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -28,7 +28,7 @@ public class TheGuardianPageParser {
 	public TheGuardianPageParser(String urlStr) throws Exception {
 		this.url = new URL(urlStr);
 		html = getContentOfHTTPPage();
-        Hello;
+
 	}
 
 	public TheGuardianPageParser() throws Exception {
