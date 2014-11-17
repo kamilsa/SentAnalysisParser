@@ -14,9 +14,13 @@ import java.util.StringTokenizer;
  */
 public class Main {
 
-    public static void main(String args[]) {
-
+    public static void main(String args[]) throws Exception {
 //        createDatabaseFromTxt("res/DepecheMood_freq.txt"); //createDatabase from txt if it necessary. Maybe db has already made.
+        //DBHelper.getConnection();
+
+        SentParser.getNews();
+
+        //DBHelper.closeConnection();
     }
 
     public static void createDatabaseFromTxt(String fileStr) throws SQLException, ClassNotFoundException {

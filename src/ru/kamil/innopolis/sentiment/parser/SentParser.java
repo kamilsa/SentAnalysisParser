@@ -14,8 +14,10 @@ public class SentParser {
 //		ac = ac.replace("/", "");
 //		System.out.println(ac);
 //		System.exit(0);
-		
-		File path = new File(new java.util.Date().toString() + "/");
+
+		String folderName = new java.util.Date().toString();
+		folderName = folderName.replaceAll("\\W", "_");
+		File path = new File(folderName + "/");
 		System.out.println(path.getAbsolutePath());
 		System.out.println(path.mkdirs());
 		
