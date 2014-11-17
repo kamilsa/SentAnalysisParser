@@ -4,11 +4,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class SentParser {
 
-	public static void getNews() throws Exception {
+	private static ArrayList<File> newsFiles = new ArrayList<File>();
+
+	public static ArrayList<File> getNews() throws Exception {
 		
 //		String ac = "AC/DC";
 //		ac = ac.replace("/", "");
@@ -38,13 +41,14 @@ public class SentParser {
 			String fileName = _new.getTitle().split("\\|")[0];
 			fileName = fileName.replaceAll("/", "");
 			File newFile = new File(path.getAbsolutePath() + "/" + fileName + ".txt");
+			newsFiles.add(newFile);
 			out = new PrintWriter(new BufferedWriter(new FileWriter(newFile)));
 			out.print(_new.getText());
 			out.flush();
 			System.out.println("finished");
 			// break;
 		}
-		
+		return newsFiles;
 	}
 
 }

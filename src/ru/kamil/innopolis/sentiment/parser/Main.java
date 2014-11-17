@@ -1,12 +1,14 @@
 package ru.kamil.innopolis.sentiment.parser;
 
 import ru.kamil.innopolis.sentiment.database.DBHelper;
+import ru.kamil.innopolis.sentiment.stemmer.Stemmer;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 /**
@@ -15,12 +17,12 @@ import java.util.StringTokenizer;
 public class Main {
 
     public static void main(String args[]) throws Exception {
-//        createDatabaseFromTxt("res/DepecheMood_freq.txt"); //createDatabase from txt if it necessary. Maybe db has already made.
-        //DBHelper.getConnection();
+        createDatabaseFromTxt("res/DepecheMood_freq.txt"); //createDatabase from txt if it necessary. If not comment this line!! Maybe db has already made.
 
-        SentParser.getNews();
+//        ArrayList<File> list = SentParser.getNews();
+//        File file[] = {list.get(0)};
+//        Stemmer.stemFile(file);
 
-        //DBHelper.closeConnection();
     }
 
     public static void createDatabaseFromTxt(String fileStr) throws SQLException, ClassNotFoundException {
@@ -32,7 +34,12 @@ public class Main {
             line = br.readLine();
             while(line != null){
                 StringTokenizer st = new StringTokenizer(line);
-                String lemma = st.nextToken();
+
+                String lemmaWord = st.nextToken();//слово + часть речи
+                StringTokenizer stLemmaWord = new StringTokenizer(lemmaWord, "#");
+                String lemma = stLemmaWord.nextToken();
+                String word = stLemmaWord.nextToken();
+
                 float afraid = Float.parseFloat(st.nextToken());
                 float amused = Float.parseFloat(st.nextToken());
                 float angry = Float.parseFloat(st.nextToken());
@@ -43,6 +50,7 @@ public class Main {
                 float sad = Float.parseFloat(st.nextToken());
 
 //                System.out.println(lemma);
+//                System.out.println(word);
 //                System.out.println(afraid);
 //                System.out.println(amused);
 //                System.out.println(angry);
@@ -52,7 +60,7 @@ public class Main {
 //                System.out.println(insipred);
 //                System.out.println(sad);
 
-                DBHelper.insertWord(lemma, afraid, amused, angry, annoyed, dontCare, happy, insipred, sad);
+                DBHelper.insertWord(lemma, word, afraid, amused, angry, annoyed, dontCare, happy, insipred, sad);
 
                 line = br.readLine();
             }
