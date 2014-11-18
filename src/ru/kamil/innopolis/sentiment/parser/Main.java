@@ -1,10 +1,12 @@
 package ru.kamil.innopolis.sentiment.parser;
 
+import ru.kamil.innopolis.sentiment.analysis.AnalisysText;
 import ru.kamil.innopolis.sentiment.database.DBHelper;
 import ru.kamil.innopolis.sentiment.stemmer.Stemmer;
 
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -13,55 +15,7 @@ import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
-/**
-        # - Pound sign
-        $ - Dollar sign
-        '' - Close double quote
-        `` - Open double quote
-        ' - Close single quote
-        ` - Open single quote
-        , - Comma
-        . - Final punctuation
-        : - Colon, semi-colon
-        -LRB- - Left bracket
-        -RRB- - Right bracket
-        CC - Coordinating conjunction
-        CD - Cardinal number
-        DT - Determiner
-        EX - Existential there
-        FW - Foreign word
-        IN - Preposition
-        JJ - Adjective
-        JJR - Comparative adjective
-        JJS - Superlative adjective
-        LS - List Item Marker
-        MD - Modal
-        NN - Singular noun
-        NNS - Plural noun
-        NNP - Proper singular noun
-        NNPS - Proper plural noun
-        PDT - Predeterminer
-        POS - Possesive ending
-        PRP - Personal pronoun
-        PP$ - Possesive pronoun
-        RB - Adverb
-        RBR - Comparative adverb
-        RBS - Superlative Adverb
-        RP - Particle
-        SYM - Symbol
-        TO - to
-        UH - Interjection
-        VB - Verb, base form
-        VBD - Verb, past tense
-        VBG - Verb, gerund/present participle
-        VBN - Verb, past participle
-        VBP - Verb, non 3rd ps. sing. present
-        VBZ - Verb, 3rd ps. sing. present
-        WDT - wh-determiner
-        WP - wh-pronoun
-        WP$ - Possesive wh-pronoun
-        WRB - wh-adverb
-*/
+
 // * Created by kamil on 16.11.14.
  //*/
 public class Main {
@@ -69,22 +23,13 @@ public class Main {
     public static void main(String args[]) throws Exception {
 //        createDatabaseFromTxt("res/DepecheMood_freq.txt"); //createDatabase from txt if it necessary. If not comment this line!! Maybe db has already made.
 
-//        ArrayList<File> list = SentParser.getNews();
-//        File file[] = {list.get(0)};
-//        Stemmer.stemFile(file);
-        MaxentTagger tagger = new MaxentTagger("res/english-bidirectional-distsim.tagger");
-        PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out, "utf-8"));
-        List<HasWord> sent = Sentence.toWordList("The", "slimy", "slug", "crawled", "over", "the", "long", ",", "green", "grass", ".");
-        List<TaggedWord> taggedSent = tagger.tagSentence(sent);
+//        ArrayList<New> list = SentParser.getNews();
 
-        for (TaggedWord tw : taggedSent) {
-//            if (tw.tag().startsWith("JJ")) {
-//                pw.println(tw.word());
-//            }
-            System.out.println(tw.tag() + " " + tw.word());
-        }
+        AnalisysText at = new AnalisysText();
+        at.procedureNew(at.someNew);
 
-        pw.close();
+
+
     }
 
     public static void createDatabaseFromTxt(String fileStr) throws SQLException, ClassNotFoundException {

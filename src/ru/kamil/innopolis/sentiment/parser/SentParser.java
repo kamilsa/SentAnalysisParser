@@ -9,9 +9,9 @@ import java.util.HashSet;
 
 public class SentParser {
 
-	private static ArrayList<File> newsFiles = new ArrayList<File>();
+	private static ArrayList<New> newsFiles = new ArrayList<New>();
 
-	public static ArrayList<File> getNews() throws Exception {
+	public static ArrayList<New> getNews() throws Exception {
 		
 //		String ac = "AC/DC";
 //		ac = ac.replace("/", "");
@@ -41,7 +41,7 @@ public class SentParser {
 			String fileName = _new.getTitle().split("\\|")[0];
 			fileName = fileName.replaceAll("/", "");
 			File newFile = new File(path.getAbsolutePath() + "/" + fileName + ".txt");
-			newsFiles.add(newFile);
+			newsFiles.add(_new);
 			out = new PrintWriter(new BufferedWriter(new FileWriter(newFile)));
 			out.print(_new.getText());
 			out.flush();
