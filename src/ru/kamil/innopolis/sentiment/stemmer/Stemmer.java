@@ -15,6 +15,9 @@ import java.io.*;
  */
 
 public class Stemmer {
+
+    private static Stemmer myStemmer = new Stemmer();
+
     private char[] b;
     private int i,     /* offset into b */
             i_end, /* offset to end of stemmed word */
@@ -547,5 +550,13 @@ public class Stemmer {
                 System.out.println("file " + args[i] + " not found");
                 break;
             }
+    }
+
+    public static String stemWord(String word){
+        for(int i = 0; i < word.length(); i++){
+            myStemmer.add(word.charAt(i));
+        }
+        myStemmer.stem();
+        return myStemmer.toString();
     }
 }
