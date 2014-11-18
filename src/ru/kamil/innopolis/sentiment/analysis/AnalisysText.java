@@ -95,6 +95,7 @@ public class AnalisysText {
                 float annoyedSum = 0;
                 float dont_careSum = 0;
                 float happySum = 0;
+
                 float inspiredSum = 0;
                 float sadSum = 0;
                 for(StemmedWord word : list){
