@@ -18,25 +18,7 @@ public class AnalisysText {
     private ArrayList<New> news;
 
     private String someTitle = "Wayne Rooney warns young England players of intimidating Glasgow crowd"; //-
-    private String someText = "Wayne Rooney has talked to the younger members of the England squad to warn them about the atmosphere at " +
-            "Celtic Park and ensure they are not intimidated in the friendly against Scotland.\n" +
-            "\n" +
-            "The England captain has taken players like Raheem Sterling, Ross Barkley and Saido " +
-            "Berahino to one side after admitting the din whipped up by the home fans can “take you by surprise”." +
-            " England have not played in Glasgow since 1999 and confront a resurgent Scotland who have lost only once – " +
-            "away to the world champions, Germany – in 10 matches under Gordon Strachan. Roy Hodgson is expected to blood a " +
-            "number of inexperienced players in his team’s final fixture of 2014.\n" +
-            "\n" +
-            "Rooney has visited this arena twice with Manchester United in European competition and is ready for an awkward evening. " +
-            "Around 52,000 tickets have been sold and England have returned a large number of their allocation. " +
-            "Police on both sides of the border are on the alert for potential crowd trouble. " +
-            "All leave in Scotland has been cancelled and extra back-up has been drafted in from Dundee and Edinburgh after there were" +
-            " 230 arrests 15 years ago.\n" +
-            "\n" +
-            "“I’ve spoken to a few of the younger players to make sure they are ready for the start of the game because, " +
-            "if you are not, it can take you by surprise,” Rooney said. “It will be a big test for us. I’ve played up here a " +
-            "few times and you know at the start of the game their fans will be really up for it. It will be quite intimidating if " +
-            "you’re not used to it, so I wanted to make sure they’re ready for it to get them settled.";
+    private String someText = " I love to kill people. " + "\n" +" I hate cute little cittens.";
     private String someUrl = "http://someurl.com";
     public New someNew = new New(someTitle, someText, someUrl);
 
@@ -108,6 +90,12 @@ public class AnalisysText {
 
             for(StemmedWord word : list){
                     Vector<Float> v = DBHelper.getWord(word);
+                    if (word.getTag()=="v")
+                    {
+
+                    }
+
+
                     if(v == null) continue;
                     for (int i = 0; i < 8 ; i++) {
                         sentTags[i].add(Double.valueOf(v.get(i)));
@@ -127,12 +115,12 @@ public class AnalisysText {
                     }
 
 
-                    mean[i] = StatUtils.mean(array);
+                    mean[i] = StatUtils.max(array);
 
-                    variance[i] = StatUtils.variance(array) ;// variance
+                    variance[i] = StatUtils.mean(array) ;// variance
 
                     System.out.println(names[i]+ " :");
-                    System.out.println("Mean " + mean[i] + " Var "+ variance[i]);
+                    System.out.println("Max " + mean[i] + " Mean "+ variance[i]);
 
                    // System.out.println(" Mode " + Arrays.toString(stat1));
                     meanTags[i].add(mean[i]);
@@ -162,10 +150,10 @@ public class AnalisysText {
 
 
                 System.out.println(names[i] + " :");
-                System.out.println("Mean of means " + mean[i] + " Var of means " + variance[i]*100);
+                System.out.println("Mean of max " + mean[i] + " Var of maxs " + variance[i]);
                 mean[i] = StatUtils.mean(array2);
                 variance[i] = StatUtils.variance(array2);// variance
-                System.out.println("Mean of vars " + mean[i]*100 + " Var of vars" + variance[i]*100);
+                System.out.println("Mean of vars " + mean[i] + " Var of vars" + variance[i]);
             }
 
 //            for (int i=0;i<8;i++) {

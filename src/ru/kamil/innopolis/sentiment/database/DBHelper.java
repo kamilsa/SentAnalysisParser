@@ -55,6 +55,8 @@ public class DBHelper {
         insertSt.execute();
     }
 
+
+
     public static Vector<Float> getWord(StemmedWord sw){
         Vector<Float> res = new Vector<Float>();
         if(!connected) return null;
@@ -66,7 +68,9 @@ public class DBHelper {
 
             ResultSet rs = selectSt.executeQuery();
             if(!rs.next()) return null;
-
+            float adding = 0;
+            if (sw.getTag().equals("v"))
+                adding +=0.2;
 
             res.add(rs.getFloat("afraid"));
             res.add(rs.getFloat("amused"));
@@ -76,6 +80,17 @@ public class DBHelper {
             res.add(rs.getFloat("happy"));
             res.add(rs.getFloat("inspired"));
             res.add(rs.getFloat("sad"));
+
+            float max = 0;
+            int maxi = 0;
+            for (int i = 0; i < res.size(); i++) {
+                if (res.get(i) > max)
+                {
+                 maxi = i;
+                    max = res.get(i);
+                }
+            }
+            res.set(maxi, max+adding);
 
             return res;
         } catch (SQLException e) {
