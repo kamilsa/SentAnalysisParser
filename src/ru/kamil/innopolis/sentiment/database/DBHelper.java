@@ -11,11 +11,15 @@ import java.util.Vector;
 
 public class DBHelper {
 
+
+
     private DBHelper(){}
 
     private static Connection conn;
     private static PreparedStatement insertSt;
     private static PreparedStatement selectSt;
+    private static PreparedStatement selectStStem;
+
 
     private static boolean connected = false;
 
@@ -24,13 +28,14 @@ public class DBHelper {
     }
 
     public static void getConnection() throws SQLException, ClassNotFoundException {
-        if(connected == true) return;
+        if(connected) return;
         Class.forName("org.h2.Driver");
         conn = DriverManager.
                 getConnection("jdbc:h2:~/test", "sa", "123");
         // add application code here
         insertSt = conn.prepareStatement("insert into depeche_mood_freq values(?,?,?,?,?,?,?,?,?,?)");
         selectSt = conn.prepareStatement("select * from depeche_mood_freq where lemma = ? and pos = ?");
+        selectStStem = conn.prepareStatement("select * from depeche_mood_freq_stem where lemma = ? and pos = ?");
         connected = true;
     }
 
@@ -61,13 +66,24 @@ public class DBHelper {
         Vector<Float> res = new Vector<Float>();
         if(!connected) return null;
         try {
-            selectSt.setString(1, sw.getText());
+            selectSt.setString(1, sw.getOrigText());
             selectSt.setString(2, sw.getTag());
 
             System.out.println(selectSt.toString());
 
             ResultSet rs = selectSt.executeQuery();
-            if(!rs.next()) return null;
+            if(!rs.next()){
+                selectStStem.setString(1, sw.getStemText());
+                selectStStem.setString(2, sw.getTag());
+                System.out.println(selectStStem.toString());
+
+                ResultSet rs1 = selectStStem.executeQuery();
+                if(rs1.next() == false){
+                    Vector<Float> res1 = new Vector<Float>(8);
+                    return null;
+                }
+                rs = rs1;
+            }
             float adding = 0;
             if (sw.getTag().equals("v"))
                 adding +=0.2;
@@ -98,6 +114,4 @@ public class DBHelper {
             return null;
         }
     }
-
-
 }

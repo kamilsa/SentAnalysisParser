@@ -21,7 +21,7 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 public class Main {
 
     public static void main(String args[]) throws Exception {
-//        createDatabaseFromTxt("res/DepecheMood_freq.txt"); //createDatabase from txt if it necessary. If not comment this line!! Maybe db has already made.
+//        createDatabaseFromTxt("res/DepecheMood_normfreq.txt"); //createDatabase from txt if it necessary. If not comment this line!! Maybe db has already made.
 
 //        ArrayList<New> list = SentParser.getNews();
 
@@ -52,7 +52,7 @@ public class Main {
                 String lemmaWord = st.nextToken();//слово + часть речи
                 StringTokenizer stLemmaWord = new StringTokenizer(lemmaWord, "#");
                 String lemma = stLemmaWord.nextToken();
-                lemma = Stemmer.stemWord(lemma);
+//                lemma = Stemmer.stemWord(lemma);
                 String word = stLemmaWord.nextToken();
 
                 float afraid = Float.parseFloat(st.nextToken());

@@ -18,7 +18,15 @@ public class AnalisysText {
     private ArrayList<New> news;
 
     private String someTitle = "Wayne Rooney warns young England players of intimidating Glasgow crowd"; //-
-    private String someText = " I love to kill people. " + "\n" +" I hate cute little cittens.";
+    private String someText = "Taylor Swift has become the first female singer to succeed herself at the top of the US Billboard Hot 100 chart.\n" +
+            "\n" +
+            "The 24-year-old's latest track, Blank Space, rose 12 places to bump her previous number one hit, Shake It Off, from the top after a four-week run.\n" +
+            "\n" +
+            "Swift is the 10th act to score the feat overall, following acts such as the Beatles, Usher and the Black Eyed Peas.\n" +
+            "\n" +
+            "The singer's album, 1989, also scored a third consecutive week at number one on the album chart.\n" +
+            "\n" +
+            "The record has so far sold two million copies and is the second best-selling album of 2014, after Disney's Frozen soundtrack, which has sold 3.25 million copies.";
     private String someUrl = "http://someurl.com";
     public New someNew = new New(someTitle, someText, someUrl);
 
@@ -30,7 +38,7 @@ public class AnalisysText {
     }
 
     public ArrayList<ArrayList<StemmedWord>> procedureNew(New _new){
-        StringTokenizer st = new StringTokenizer(_new.getText(), ".");
+        StringTokenizer st = new StringTokenizer(_new.getText(), ".?!;");
         String currSentence;
         ArrayList<ArrayList<StemmedWord>> sentences = new ArrayList<ArrayList<StemmedWord>>();
         while(st.hasMoreTokens()){
@@ -151,9 +159,12 @@ public class AnalisysText {
 
                 System.out.println(names[i] + " :");
                 System.out.println("Mean of max " + mean[i] + " Var of maxs " + variance[i]);
+                System.out.println("Prob " + mean[i] * (1-variance[i]*10) );
                 mean[i] = StatUtils.mean(array2);
                 variance[i] = StatUtils.variance(array2);// variance
                 System.out.println("Mean of vars " + mean[i] + " Var of vars" + variance[i]);
+
+
             }
 
 //            for (int i=0;i<8;i++) {
@@ -162,7 +173,7 @@ public class AnalisysText {
 //            }
 
 //            Vector<Float> v = DBHelper.getWord(sentences.get(0).get(3));
-////            System.out.println(sentences.get(0).get(3).getText());
+////            System.out.println(sentences.get(0).get(3).getStemText());
 //            for(Float f : v){
 //                System.out.println(f);
 //            }

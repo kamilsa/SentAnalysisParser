@@ -59,12 +59,18 @@ import ru.kamil.innopolis.sentiment.stemmer.Stemmer;
 public class StemmedWord {
     private String text;
     private String tag;
+    private String origText;
 
-    public String getText(){
+    public String getStemText(){
         return text;
     }
+
     public String getTag(){
         return tag;
+    }
+
+    public String getOrigText() {
+        return origText;
     }
 
     public void setText(String text){
@@ -75,6 +81,8 @@ public class StemmedWord {
     }
 
     public StemmedWord(String text, String tag) {
+        text = text.toLowerCase();
+        this.origText = text;
         this.text = Stemmer.stemWord(text);
         if(tag.startsWith("JJ")){
             tag = "a";
@@ -99,4 +107,5 @@ public class StemmedWord {
         }
         this.tag = tag;
     }
+
 }
