@@ -16,7 +16,7 @@ import java.util.*;
 public class AnalisysText {
     private ArrayList<New> news;
 
-    private String someTitle = "Wayne Rooney warns young England players of intimidating Glasgow crowd";
+    private String someTitle = "Wayne Rooney warns young England players of intimidating Glasgow crowd"; //-
     private String someText = "Wayne Rooney has talked to the younger members of the England squad to warn them about the atmosphere at " +
             "Celtic Park and ensure they are not intimidated in the friendly against Scotland.\n" +
             "\n" +
@@ -68,7 +68,7 @@ public class AnalisysText {
         }
 
         try {
-            DBHelper.getConnection();
+           DBHelper.getConnection();
 
 //            float afraidSentSum = 0;
 //            float amusedSentSum = 0;
@@ -79,54 +79,60 @@ public class AnalisysText {
 //            float inspiredSentSum = 0;
 //            float sadSentSum = 0;
 
-            float afraidSentSum = 0;
-            float amusedSentSum = 0;
-            float angrySentSum = 0;
-            float annoyedSentSum = 0;
-            float dont_careSentSum = 0;
-            float happySentSum = 0;
-            float inspiredSentSum = 0;
-            float sadSentSum = 0;
 
+            float sumTags[] = new float[8];
+            float minTags[];
+            String minWords[] = new String[8];
+            minTags = new float[]{1,1,1,1 , 1,1,1,1};
+            float maxTags[] = new float[8];
+            String names[] = {"afraid: ","amused: ","angry: ","annoyed: ","dont_care: ","happy: ","inspired: ","sad: "};
+            int wordNumber[] = new  int[8];
+
+            String maxWords[] = new String[8];
             for(ArrayList<StemmedWord> list : sentences){
-                float afraidSum = 0;
-                float amusedSum = 0;
-                float angrySum = 0;
-                float annoyedSum = 0;
-                float dont_careSum = 0;
-                float happySum = 0;
-                float inspiredSum = 0;
-                float sadSum = 0;
-                for(StemmedWord word : list){
+                int number = 0;
+            for(StemmedWord word : list){
                     Vector<Float> v = DBHelper.getWord(word);
                     if(v == null) continue;
-                    afraidSum += v.get(0);
-                    amusedSum += v.get(1);
-                    angrySum += v.get(2);
-                    annoyedSum += v.get(3);
-                    dont_careSum += v.get(4);
-                    happySum += v.get(5);
-                    inspiredSum += v.get(6);
-                    sadSum += v.get(7);
+                    for (int i = 0; i < 8 ; i++) {
+                        if (v.get(i) > maxTags[i])
+                        {
+                            maxTags[i] = v.get(i);
+                            maxWords[i] = word.getText();
+
+                        }
+                        if (v.get(i) < minTags[i])
+                        {
+                            minTags[i] = v.get(i);
+                            minWords[i] = word.getText();
+                        }
+                        sumTags[i] += v.get(i);
+                        if (v.get(i)!=0)
+                        wordNumber[i]++;
+
+                    }
+                number++;
+                 }
+                System.out.println("Sentence----------------");
+
+                for (int i = 0; i< 8; i++)
+                {
+
+                   // sumTags[i] /= number;
+                    System.out.println(names[i] +":" + " Max " + maxTags[i] + " Min " + minTags[i] + " Number " +wordNumber[i]);
+                    System.out.println("--Statistic : "+ "Avr =" + sumTags[i]/number + " AvrW ="+sumTags[i]/wordNumber[i]);
+
+
                 }
-                afraidSentSum += afraidSum/list.size();
-                amusedSentSum += amusedSum/list.size();
-                angrySentSum += angrySum/list.size();
-                annoyedSentSum += annoyedSum/list.size();
-                dont_careSentSum += dont_careSum/list.size();
-                happySentSum += happySum/list.size();
-                inspiredSentSum += inspiredSum/list.size();
-                sadSentSum += sadSum/list.size();
+                minTags = new float[]{1,1,1,1,  1,1,1,1};
+                maxTags = new float[8];
+                sumTags = new float[8];
             }
 
-            System.out.println("afraid: " + afraidSentSum/sentences.size());
-            System.out.println("amused: " + amusedSentSum/sentences.size());
-            System.out.println("angry: " + angrySentSum/sentences.size());
-            System.out.println("annoyed: " + annoyedSentSum/sentences.size());
-            System.out.println("dont_care: " + dont_careSentSum / sentences.size());
-            System.out.println("happy: " + happySentSum/sentences.size());
-            System.out.println("inspired: " + inspiredSentSum/sentences.size());
-            System.out.println("sad: " + sadSentSum/sentences.size());
+//            for (int i=0;i<8;i++) {
+//                System.out.println("Max " + names[i] + maxTags[i] + " " + maxWords[i] );
+//                System.out.println("Min "+ names[i] + minTags[i] + " " + minWords[i] + " The sum of tags " + sumTags[i]);
+//            }
 
 //            Vector<Float> v = DBHelper.getWord(sentences.get(0).get(3));
 ////            System.out.println(sentences.get(0).get(3).getText());
@@ -137,7 +143,8 @@ public class AnalisysText {
             DBHelper.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         } finally{
         }

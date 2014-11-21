@@ -2,7 +2,7 @@
   <library name="postgresql-9.3-1102.jdbc3">
     <CLASSES>
       <root url="jar://C:/Хлам для явы/postgresql-9.3-1102.jdbc3.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../Хлам для явы/h2-latest.jar!/" />
+      <root url="jar://C:/Хлам для явы/h2-latest.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

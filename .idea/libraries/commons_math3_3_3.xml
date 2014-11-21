@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="h2-1.4.182">
+  <library name="commons-math3-3.3">
     <CLASSES>
-      <root url="jar://C:/Хлам для явы/h2-1.4.182.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-math3-3.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
