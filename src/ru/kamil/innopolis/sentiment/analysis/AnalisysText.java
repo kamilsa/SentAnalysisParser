@@ -4,9 +4,10 @@ import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.Sentence;
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import edu.stanford.nlp.util.ArrayUtils;
 import ru.kamil.innopolis.sentiment.database.DBHelper;
 import ru.kamil.innopolis.sentiment.parser.New;
-
+import org.apache.commons.math3.stat.StatUtils;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -87,46 +88,84 @@ public class AnalisysText {
             float maxTags[] = new float[8];
             String names[] = {"afraid: ","amused: ","angry: ","annoyed: ","dont_care: ","happy: ","inspired: ","sad: "};
             int wordNumber[] = new  int[8];
-
+           // double sentTags[] = new double[8];
+            ArrayList<Double>[] sentTags = new ArrayList[8];
             String maxWords[] = new String[8];
+            ArrayList<Double>[] meanTags = new ArrayList[8];
+            ArrayList<Double>[] varTags = new ArrayList[8];
+            for (int i = 0; i < 8; i++) {
+                meanTags[i] = new ArrayList<Double>();
+                varTags[i] = new ArrayList<Double>();
+            }
+
             for(ArrayList<StemmedWord> list : sentences){
                 int number = 0;
+                for (int i = 0; i < 8; i++) {
+                    sentTags[i] = new ArrayList<Double>();
+
+                }
+
+
             for(StemmedWord word : list){
                     Vector<Float> v = DBHelper.getWord(word);
                     if(v == null) continue;
                     for (int i = 0; i < 8 ; i++) {
-                        if (v.get(i) > maxTags[i])
-                        {
-                            maxTags[i] = v.get(i);
-                            maxWords[i] = word.getText();
-
+                        sentTags[i].add(Double.valueOf(v.get(i)));
                         }
-                        if (v.get(i) < minTags[i])
-                        {
-                            minTags[i] = v.get(i);
-                            minWords[i] = word.getText();
-                        }
-                        sumTags[i] += v.get(i);
-                        if (v.get(i)!=0)
-                        wordNumber[i]++;
-
-                    }
                 number++;
                  }
                 System.out.println("Sentence----------------");
+                double mean[] = new double[8];
+
+                double variance[] = new double[8];
 
                 for (int i = 0; i< 8; i++)
                 {
+                   double [] array = new double[number];
+                    for (int j = 0; j < number; j++) {
+                        array[j] = sentTags[i].get(j);
+                    }
 
-                   // sumTags[i] /= number;
-                    System.out.println(names[i] +":" + " Max " + maxTags[i] + " Min " + minTags[i] + " Number " +wordNumber[i]);
-                    System.out.println("--Statistic : "+ "Avr =" + sumTags[i]/number + " AvrW ="+sumTags[i]/wordNumber[i]);
 
+                    mean[i] = StatUtils.mean(array);
+
+                    variance[i] = StatUtils.variance(array) ;// variance
+
+                    System.out.println(names[i]+ " :");
+                    System.out.println("Mean " + mean[i] + " Var "+ variance[i]);
+
+                   // System.out.println(" Mode " + Arrays.toString(stat1));
+                    meanTags[i].add(mean[i]);
+                    varTags[i].add(variance[i]);
 
                 }
-                minTags = new float[]{1,1,1,1,  1,1,1,1};
-                maxTags = new float[8];
-                sumTags = new float[8];
+
+
+
+            }
+            System.out.println(someText);
+            double mean[] = new double[8];
+
+            double variance[] = new double[8];
+
+            for (int i = 0; i< 8; i++) {
+                double[] array1 = new double[sentences.size()];
+                double[] array2 = new double[sentences.size()];
+                for (int j = 0; j < sentences.size(); j++) {
+
+                    array1[j] = meanTags[i].get(j);
+                    array2[j] = varTags[i].get(j);
+                }
+
+                mean[i] = StatUtils.mean(array1);
+                variance[i] = StatUtils.variance(array1);// means
+
+
+                System.out.println(names[i] + " :");
+                System.out.println("Mean of means " + mean[i] + " Var of means " + variance[i]*100);
+                mean[i] = StatUtils.mean(array2);
+                variance[i] = StatUtils.variance(array2);// variance
+                System.out.println("Mean of vars " + mean[i]*100 + " Var of vars" + variance[i]*100);
             }
 
 //            for (int i=0;i<8;i++) {
@@ -146,7 +185,6 @@ public class AnalisysText {
         }
         catch (Exception e) {
             e.printStackTrace();
-        } finally{
         }
 
         return sentences;
