@@ -86,7 +86,7 @@ public class DBHelper {
             }
             float adding = 0;
             if (sw.getTag().equals("v"))
-                adding +=0.2;
+                adding +=0.05;
 
             res.add(rs.getFloat("afraid"));
             res.add(rs.getFloat("amused"));
