@@ -2,6 +2,7 @@ package ru.kamil.innopolis.sentiment.parser;
 
 import ru.kamil.innopolis.sentiment.analysis.AnalisysText;
 import ru.kamil.innopolis.sentiment.database.DBHelper;
+import ru.kamil.innopolis.sentiment.gui.SentAnFrame;
 import ru.kamil.innopolis.sentiment.stemmer.Stemmer;
 
 import java.io.*;
@@ -21,8 +22,55 @@ public class Main {
 
 //        ArrayList<New> list = SentParser.getNews();
 
-        AnalisysText at = new AnalisysText();
-        at.procedureNew(at.someNew);
+//        AnalisysText at = new AnalisysText();
+//        at.procedureNew(at.someNew);
+
+
+        //----------------------------------------------------------------
+        //test GUI
+        String someTitle1 = "Die"; //-
+        String someText1 = "Everybody has to dye. Get ready to dye. Badly injured people over 1 million.";
+        String someUrl1 = "http://someurl1.com";
+        New new1 = new New(someTitle1,someText1,someUrl1);
+
+        String someTitle2 = "Putin kills Obama"; //-
+        String someText2 = "Putin kills Obama. Obama cried for help. But nobody listened.";
+        String someUrl2 = "http://someurl2.com";
+        New new2 = new New(someTitle2,someText2,someUrl2);
+
+        String someTitle3 = "Kamil becomes a billionaire."; //-
+        String someText3 = "Kamil has got his first billion dollars. He was very happy.";
+        String someUrl3 = "http://someurl3.com";
+        New new3 = new New(someTitle3,someText3,someUrl3);
+
+
+        String someTitle4 = "Free lunch for everyone! Go get it now "; //-
+        String someText4 = "Free lunch for everyone! Go get it now.";
+        String someUrl4 = "http://someurl3.com";
+        New new4 = new New(someTitle4,someText4,someUrl4);
+
+        String someTitle5 = "Important "; //-
+        String someText5 = "Very important news! We have tomorrow a lot of fun. There will be beautiful day and weather. We will make picnic!";
+        String someUrl5 = "http://someurl3.com";
+        New new5 = new New(someTitle5,someText5,someUrl5);
+
+        String someTitle6 = "Sad news "; //-
+        String someText6 = "Very bad news! A good man died. He was good guy wgo helped many people. Now we are crying without him";
+        String someUrl6 = "http://someurl3.com";
+        New new6 = new New(someTitle6,someText6,someUrl6);
+
+
+        ArrayList<New> news = new ArrayList<New>();
+        news.add(new1);
+        news.add(new2);
+        news.add(new3);
+        news.add(new4);
+        news.add(new5);
+        news.add(new6);
+
+
+        SentAnFrame frame = new SentAnFrame(news);
+        //------------------------------------------------------------------
 
 
 

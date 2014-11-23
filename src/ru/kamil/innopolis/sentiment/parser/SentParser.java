@@ -46,6 +46,7 @@ public class SentParser {
 			out.print(_new.getText());
 			out.flush();
 			System.out.println("finished");
+			if(i == 2) break;
 			// break;
 		}
 		return newsFiles;

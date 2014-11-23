@@ -16,15 +16,7 @@ public class AnalisysText {
     private ArrayList<New> news;
 
     private String someTitle = "Wayne Rooney warns young England players of intimidating Glasgow crowd"; //-
-    private String someText = "Taylor Swift has become the first female singer to succeed herself at the top of the US Billboard Hot 100 chart.\n" +
-            "\n" +
-            "The 24-year-old's latest track, Blank Space, rose 12 places to bump her previous number one hit, Shake It Off, from the top after a four-week run.\n" +
-            "\n" +
-            "Swift is the 10th act to score the feat overall, following acts such as the Beatles, Usher and the Black Eyed Peas.\n" +
-            "\n" +
-            "The singer's album, 1989, also scored a third consecutive week at number one on the album chart.\n" +
-            "\n" +
-            "The record has so far sold two million copies and is the second best-selling album of 2014, after Disney's Frozen soundtrack, which has sold 3.25 million copies.";
+    private String someText = "Everybody has to dye. Get ready to dye. Badly injured people over 1 million.";
     private String someUrl = "http://someurl.com";
     public New someNew = new New(someTitle, someText, someUrl);
 
@@ -171,7 +163,7 @@ public class AnalisysText {
                 sum += probsMap.get(name);
             }
             for(String name : names){
-                System.out.println(name + ": " + probsMap.get(name)/sum);
+                System.out.println(name + ": " + probsMap.get(name)*100/sum + " %");
             }
 //            for (int i=0;i<8;i++) {
 //                System.out.println("Max " + names[i] + maxTags[i] + " " + maxWords[i] );
