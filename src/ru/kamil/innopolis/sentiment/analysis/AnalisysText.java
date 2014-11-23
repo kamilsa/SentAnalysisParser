@@ -1,8 +1,6 @@
 package ru.kamil.innopolis.sentiment.analysis;
 
-import edu.stanford.nlp.ling.HasWord;
-import edu.stanford.nlp.ling.Sentence;
-import edu.stanford.nlp.ling.TaggedWord;
+import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import edu.stanford.nlp.util.ArrayUtils;
 import ru.kamil.innopolis.sentiment.database.DBHelper;
@@ -83,6 +81,7 @@ public class AnalisysText {
             String maxWords[] = new String[8];
             ArrayList<Double>[] meanTags = new ArrayList[8];
             ArrayList<Double>[] varTags = new ArrayList[8];
+            HashMap<String, Double> probsMap = new HashMap<String, Double>();
             for (int i = 0; i < 8; i++) {
                 meanTags[i] = new ArrayList<Double>();
                 varTags[i] = new ArrayList<Double>();
@@ -160,13 +159,20 @@ public class AnalisysText {
                 System.out.println(names[i] + " :");
                 System.out.println("Mean of max " + mean[i] + " Var of maxs " + variance[i]);
                 System.out.println("Prob " + mean[i] * (1-variance[i]*10) );
+                probsMap.put(names[i], mean[i] * (1-variance[i]*10));
                 mean[i] = StatUtils.mean(array2);
                 variance[i] = StatUtils.variance(array2);// variance
                 System.out.println("Mean of vars " + mean[i] + " Var of vars" + variance[i]);
 
 
             }
-
+            Double sum = 0d;
+            for(String name : names){
+                sum += probsMap.get(name);
+            }
+            for(String name : names){
+                System.out.println(name + ": " + probsMap.get(name)/sum);
+            }
 //            for (int i=0;i<8;i++) {
 //                System.out.println("Max " + names[i] + maxTags[i] + " " + maxWords[i] );
 //                System.out.println("Min "+ names[i] + minTags[i] + " " + minWords[i] + " The sum of tags " + sumTags[i]);
