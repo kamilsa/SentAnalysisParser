@@ -1,7 +1,7 @@
 package ru.kamil.innopolis.sentiment.gui.listeners;
 
-import ru.kamil.innopolis.sentiment.gui.AnalysisPanel;
-import ru.kamil.innopolis.sentiment.gui.AskClassDialog;
+import ru.kamil.innopolis.sentiment.gui.AnalysisPanel;;
+import ru.kamil.innopolis.sentiment.gui.CreateDialog;
 import ru.kamil.innopolis.sentiment.gui.ListPanel;
 import ru.kamil.innopolis.sentiment.gui.TextPanel;
 import ru.kamil.innopolis.sentiment.parser.New;
@@ -36,9 +36,13 @@ public class MySelectionListener implements ListSelectionListener {
             for(New _new : lp.getNews()){
                 if(_new.getTitle().equals(last)){
                     //ToDo
-                    new AskClassDialog(frame).setVisible(true);
+                    CreateDialog cd = new CreateDialog(frame);
+                    cd.setVisible(true);
+
+//                    cd.getInfo();
                     tp.getTp().setText(_new.getText());
                     ap.setData(_new);
+                    ap.setClassData(cd.getInfo());
                     break;
                 }
             }
@@ -49,8 +53,11 @@ public class MySelectionListener implements ListSelectionListener {
             System.out.println(titleList.getSelectedValue());
             for(New _new : lp.getNews()){
                 if(_new.getTitle().equals(titleList.getSelectedValue())){
+                    CreateDialog cd = new CreateDialog(frame);
+                    cd.setVisible(true);
                     tp.getTp().setText(_new.getText());
                     ap.setData(_new);
+                    ap.setClassData(cd.getInfo());
                     break;
                 }
             }

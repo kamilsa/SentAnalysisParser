@@ -22,11 +22,11 @@ public class AnalysisPanel extends JPanel {
             "Sad"
     };
     public Object[][] data = {
-            {"Prob max", null,null, null, null, null, null, null, null},
+//            {"Prob max", null,null, null, null, null, null, null, null},
             {" max", null,null, null, null, null, null, null, null},
-            {"Prob mean", null,null, null, null, null, null, null, null},
+//            {"Prob mean", null,null, null, null, null, null, null, null},
             {"mean ", null,null, null, null, null, null, null, null},
-            {"???", null,null, null, null, null, null, null, null}
+            {"clsaa", null,null, null, null, null, null, null, null}
     };
 
     private final JTable table;
@@ -52,12 +52,20 @@ public class AnalysisPanel extends JPanel {
 
         String names[] = {"afraid: ","amused: ","angry: ","annoyed: ","dont_care: ","happy: ","inspired: ","sad: "};
 
+        Double totMeanOfMax = 0.0;
+        Double totMeanOfVars = 0.0;
+        for(String name : names){
+            totMeanOfMax += meanOfMax.get(name);
+            totMeanOfVars += meanOfVars.get(name);
+        }
+
         for(int i = 1; i < data[0].length; i++){
          //   table.getModel().setValueAt(probs.get(names[i - 1]),     0, i);
-            table.getModel().setValueAt(meanOfMax.get(names[i - 1]), 1, i);
+            table.getModel().setValueAt(meanOfMax.get(names[i - 1])*100/totMeanOfMax, 0, i);
          //   table.getModel().setValueAt(varOfMaxs.get(names[i - 1]), 2, i);
-            table.getModel().setValueAt(meanOfVars.get(names[i - 1]),3, i);
+            table.getModel().setValueAt(meanOfVars.get(names[i - 1])*100/totMeanOfVars,1, i);
 //            table.getModel().setValueAt(varOfVars.get(names[i-1]),   4, i);
+
         }
 
 //        data = {
@@ -68,5 +76,13 @@ public class AnalysisPanel extends JPanel {
 //                {"var of vars", varOfVars.get("afraid"),varOfVars.get("amused"), varOfVars.get("angry"), varOfVars.get("annoyed"), varOfVars.get("dont_care"), varOfVars.get("happy"), varOfVars.get("inspired"), varOfVars.get("sad")}
 //        };
 
+    }
+
+    public void setClassData(HashMap<String, Double> info) {
+        String names[] = {"afraid","amused","angry","annoyed","dont_care","happy","inspired", "sad"};
+        System.out.println(info.get(names[2]));
+        for(int i = 1; i < data[0].length; i++){
+            table.getModel().setValueAt(info.get(names[i - 1]), 2, i);
+        }
     }
 }
