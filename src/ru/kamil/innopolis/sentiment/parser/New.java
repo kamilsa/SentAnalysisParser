@@ -150,9 +150,43 @@ public class New {
 
 				mean[i] = StatUtils.mean(array1);
 				variance[i] = StatUtils.variance(array1);// means
+                double mean2[] = new double[8];
+                boolean proceed[] = new boolean[]{false, false, false, false, false,false,false,false};
+                for (int j = 0; j < 8; j++) {
+                    double min = mean[0];
+                    int mininx = 0;
+                    boolean good = false;
+                    for (int k = 0; k < 8; k++) {
+                        if (mean[k] < min &&  !proceed[k])
+                        {
+                            min = mean[k];
+                            mininx = k;
+                            good = true;
+                        }
+                    }
+                    if (!proceed[0] && good) {
+                        proceed[mininx] = true;
+                        double min2 = mean[0];
+                        int mininx2 = 0;
+                        good = false;
+                        for (int k = 0; k < 8; k++) {
+                            if (!proceed[k] && mean[k] < min2) {
+                                min2 = mean[k];
+                                mininx2 = k;
+                                good = true;
+                            }
+                        }
+                        mean2[mininx2] =mean[mininx2] + ( mean[mininx2] - mean[mininx])*2;
+                    }
+                }
+
+                for (int j = 0; j < 8; j++) {
+                    mean[j] = mean2[j];
+                }
 
 
-				System.out.println(names[i] + " :");
+
+                System.out.println(names[i] + " :");
 				System.out.println("Mean of max " + mean[i] + " Var of maxs " + variance[i]);
 				meanOfMax.put(names[i], mean[i]);
 
@@ -160,6 +194,44 @@ public class New {
 				probsMap.put(names[i], mean[i] * (1-variance[i]*10));
 				mean[i] = StatUtils.mean(array2);
 				variance[i] = StatUtils.variance(array2);// variance
+
+                mean2 = new double[8];
+                proceed = new boolean[]{false, false, false, false, false,false,false,false};
+                for (int j = 0; j < 8; j++) {
+                    double min = mean[0];
+                    int mininx = 0;
+                    boolean good = false;
+                    for (int k = 0; k < 8; k++) {
+                        if (mean[k] < min &&  !proceed[k])
+                        {
+                            min = mean[k];
+                            mininx = k;
+                            good = true;
+                        }
+                    }
+                    if (!proceed[0] && good) {
+                        proceed[mininx] = true;
+                        double min2 = mean[0];
+                        int mininx2 = 0;
+                        good = false;
+                        for (int k = 0; k < 8; k++) {
+                            if (!proceed[k] && mean[k] < min2) {
+                                min2 = mean[k];
+                                mininx2 = k;
+                                good = true;
+                            }
+                        }
+                        mean2[mininx2] =mean[mininx2] + ( mean[mininx2] - mean[mininx])*2;
+                    }
+                }
+
+                for (int j = 0; j < 8; j++) {
+                                 mean[j] = mean2[j];
+                }
+
+
+
+
 				System.out.println("Mean of vars " + mean[i] + " Var of vars" + variance[i]);
 				meanOfVars.put(names[i], mean[i]);
 				varOfMaxs.put(names[i], mean[i] * (1- variance[i]*100));
