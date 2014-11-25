@@ -26,7 +26,7 @@ public class AnalysisPanel extends JPanel {
             {" max", null,null, null, null, null, null, null, null},
 //            {"Prob mean", null,null, null, null, null, null, null, null},
             {"mean ", null,null, null, null, null, null, null, null},
-            {"clsaa", null,null, null, null, null, null, null, null}
+            {"class", null,null, null, null, null, null, null, null}
     };
 
     private final JTable table;

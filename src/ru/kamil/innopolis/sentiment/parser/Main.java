@@ -44,7 +44,7 @@ public class Main {
         New new3 = new New(someTitle3,someText3,someUrl3);
 
 
-        String someTitle4 = "Free lunch for everyone! Go get it now "; //-
+        String someTitle4 = "Free lunch"; //-
         String someText4 = "Free lunch for everyone! Go get it now.";
         String someUrl4 = "http://someurl3.com";
         New new4 = new New(someTitle4,someText4,someUrl4);
